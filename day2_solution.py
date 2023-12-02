@@ -17,6 +17,9 @@ def reformatLine(line):
 	redValue = 0
 	greenValue = 0
 	blueValue = 0
+
+	minimum = [0,0,0]
+
 	digitInTheMaking = "0"
 	colorInTheMaking = ""
 
@@ -31,6 +34,15 @@ def reformatLine(line):
 			#print("redvalue", redValue)
 			newLine.append({COLOURS[0]:redValue, COLOURS[1]:greenValue, COLOURS[2]:blueValue})
 	#		print(newLine)
+
+			if redValue > minimum[0]:
+				minimum[0] = redValue
+
+			if greenValue > minimum[1]:
+				minimum[1] = greenValue
+
+			if blueValue > minimum[2]:
+				minimum[2] = blueValue
 
 			# reinitialise values
 			redValue = 0
@@ -62,7 +74,7 @@ def reformatLine(line):
 
 		i += 1
 
-	return (newLine, gameId)
+	return (newLine, gameId, minimum)
 
 def solveProblemOne(input):
 	# set the total
@@ -89,15 +101,33 @@ def solveProblemOne(input):
 	return result
 
 
+def solveProblemTwo(input):
+	result = 0
+
+	for line in input:
+		newLine, gameId, minimum = reformatLine(line)
+
+		result += (minimum[0] * minimum[1] * minimum[2])
+
+	return result
+
+
 def main():
-	testInput = readFile("day2_test.txt")
-	testResult = solveProblemOne(testInput)
+	#testInput = readFile("day2_test.txt")
+	#testResult = solveProblemOne(testInput)
+	#print(testResult)
+
+	print("------\n")
+
+	testInput = readFile("day2_test2.txt")
+	testResult = solveProblemTwo(testInput)
 	print(testResult)
 
 	print("------\n")
 
 	input = readFile("day2_input.txt");
-	result = solveProblemOne(input)
+	#result = solveProblemOne(input)
+	result = solveProblemTwo(input)
 	print(result)
 
 if __name__ == "__main__":
