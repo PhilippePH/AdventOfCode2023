@@ -48,23 +48,26 @@ def solveProblemOne(puzzleInput):
 	return total
 
 def solveProblemTwo(puzzleInput):
-	total = 0
-	numberOfCards 
+	numberOfCards = [1 for _ in range(len(puzzleInput))]
+
 	for i in range(len(puzzleInput)):
-		winningNumbers, ownNumbers = splitLine(line)
+		winningNumbers, ownNumbers = splitLine(puzzleInput[i])
 
 		cardValue = 0
 
 		for number in ownNumbers:
 			if number in winningNumbers:
-				if cardValue == 0:
-					cardValue = 1
-				else:
-					cardValue *= 2
+				cardValue += 1
 
-		total += cardValue
+		#update the total number of cards you have
+		for j in range(1, cardValue + 1, 1):
+			if i + j > len(numberOfCards):
+				continue
+			numberOfCards[i+j] += numberOfCards[i]
 
-	return total
+		##print(numberOfCards)
+
+	return sum(numberOfCards)
 
 
 def main():
@@ -81,8 +84,8 @@ def main():
 	print("------\n")
 
 	puzzleInput = readFile("input.txt")
-	result = solveProblemOne(puzzleInput)
-	#result = solveProblemTwo(puzzleInput)
+	#result = solveProblemOne(puzzleInput)
+	result = solveProblemTwo(puzzleInput)
 	print(result)
 
 if __name__ == "__main__":
