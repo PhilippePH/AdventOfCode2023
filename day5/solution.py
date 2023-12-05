@@ -47,7 +47,7 @@ def mapping(initialValue, transformationInformation):
 
 	# Go through each line of the transformatio
 	for transformation in transformationInformation:
-		# Check if initialValue falls within 
+		# Check if initialValue falls within
 		if initialValue >= transformation[1] and initialValue <= (transformation[1] + transformation[2]):
 			# If so, return its offsetted value
 			diff = initialValue - transformation[1]
@@ -57,12 +57,31 @@ def mapping(initialValue, transformationInformation):
 
 	return valueToReturn
 
-def solveProblemOne(puzzleInput):
+
+def getAllSeeds(seeds):
+	newSeeds = []
+
+	i = 0
+
+	while i < len(seeds):
+		# range includes 0 which is fine cause we want to add the initial value
+		# need to add a +1 cause last value is excluded
+		for j in range(seeds[i+1] + 1):
+			newSeeds.append(seeds[i] + j)
+		i += 2
+
+	return newSeeds
+
+def solve(puzzleInput):
 	locations = []
 
 	listedInput = breakdownInput(puzzleInput)
 
 	seeds = listedInput[0]
+
+	# FOR PROBLEM TWO
+	seeds = getAllSeeds(seeds)
+
 	seedToSoil = listedInput[1]
 	soilToFertilizer = listedInput[2]
 	fertilizerToWater = listedInput[3]
@@ -86,7 +105,7 @@ def solveProblemOne(puzzleInput):
 
 def main():
 	testInput = readFile("test1.txt")
-	testResult = solveProblemOne(testInput)
+	testResult = solve(testInput)
 	print(testResult)
 
 	print("------\n")
@@ -98,7 +117,7 @@ def main():
 	print("------\n")
 
 	puzzleInput = readFile("input.txt")
-	result = solveProblemOne(puzzleInput)
+	result = solve(puzzleInput)
 	#result = solveProblemTwo(puzzleInput)
 	print(result)
 
