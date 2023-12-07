@@ -10,6 +10,16 @@ so for a 5 sec race, the options aree
 	Meaning the ttotal distance is pyramidal (symmetric over the center) --> meaning you only need to calculate half and "double" or "-1 and then double"
 """
 
+def treatInputQuestionTwo(puzzleInput):
+	print(puzzleInput[0][5:].split())
+
+
+	time = int((puzzleInput[0][5:]).replace(" ",""))
+	distance = int((puzzleInput[1][9:]).replace(" ",""))
+
+	print(time, distance)
+	return (time, distance)
+
 def treatInput(puzzleInput):
 	time = puzzleInput[0][5:].split()
 	distance = puzzleInput[1][9:].split()
@@ -25,7 +35,7 @@ def waysToWin(time, distance):
 	for i in range(0, time // 2 + 1, 1):
 		if i * (time - i) > distance:
 			if i == (time)/ 2:
-				counter += 1 # 1 because top of pyramid 
+				counter += 1 # 1 because top of pyramid
 			else:
 				counter += 2 # two since it is symmetrical
 	return counter
@@ -33,11 +43,14 @@ def waysToWin(time, distance):
 def solveProblemOne(puzzleInput):
 	total = 1
 
-	time, distance  = treatInput(puzzleInput)
+	##time, distance  = treatInput(puzzleInput)
 
-	for i in range(len(time)):
-		total *= waysToWin(time[i], distance[i])
+	time, distance = treatInputQuestionTwo(puzzleInput)
 
+	#for i in range(len(time)):
+	#	total *= waysToWin(time[i], distance[i])
+
+	total = waysToWin(time, distance)
 	return total
 
 
